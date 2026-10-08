@@ -1,14 +1,38 @@
+# ============================================================
+# CHECKMATE - BLUE & WHITE EDITION
+# ============================================================
+# ไฟล์นี้เป็นส่วน GUI ของเกมหมากรุก
+# ใช้ pygame สำหรับสร้างหน้าต่าง กระดาน ตัวหมาก และการคลิก
+#
+# หลักการสำคัญ:
+# - ตัวพิมพ์ใหญ่ = White
+# - ตัวพิมพ์เล็ก = Black
+# - White เริ่มก่อน
+# - คลิกตัวหมากเพื่อเลือก
+# - ระบบจะแสดงช่องที่สามารถเดินได้
+# - ห้ามกินหมากฝ่ายเดียวกัน
+# - ตรวจว่า King ของฝ่ายตัวเองจะถูกเช็กหรือไม่ก่อนเดิน
+# - เมื่อ King ของฝ่ายที่ถึงตาถูกเช็ก เกมจะแสดง FAIL และจบ
+# ============================================================
+
 import pygame
 from checkmate import checkmate
 
 pygame.init()
 
+# เริ่มต้นระบบ pygame ก่อนสร้างหน้าต่างและใช้งาน font / drawing ต่าง ๆ
+
 WIDTH = 760
 HEIGHT = 900
+# ------------------------------------------------------------
+# Main game loop
+# ------------------------------------------------------------
+# สร้างหน้าต่าง pygame และเตรียม state เริ่มต้นของเกม
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("CHECKMATE - Blue & White")
 
 # ---------- Colors ----------
+# รวมสีทั้งหมดไว้ด้านบน เพื่อแก้ธีมของเกมได้ง่าย
 BACKGROUND = (225, 242, 255)
 WHITE_SQUARE = (248, 252, 255)
 BLUE_SQUARE = (135, 200, 235)
@@ -150,6 +174,8 @@ def path_clear(board, r1, c1, r2, c2):
 
     return True
 
+
+# ตรวจตำแหน่ง King ของฝ่ายที่กำหนด แล้วดูว่าถูกฝ่ายตรงข้ามโจมตีหรือไม่
 
 def is_in_check(board, white):
     king = find_king(board, white)
@@ -546,6 +572,7 @@ def main():
 
     running = True
 
+    # วนลูปเกมจนกว่าผู้เล่นจะปิดหน้าต่าง
     while running:
         for event in pygame.event.get():
 
@@ -624,7 +651,6 @@ def main():
 
         draw_board(board, selected, moves, turn, game_over)
         pygame.display.flip()
-
     pygame.quit()
 
 
